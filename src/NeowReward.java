@@ -408,7 +408,7 @@ public class NeowReward
                 AbstractDungeon.player.decreaseMaxHealth(this.hp_bonus);
                 break;
             case FIFTY_PERCENT_DAMAGE:
-                AbstractDungeon.player.damage(new DamageInfo(null, AbstractDungeon.player.maxHealth / 2, DamageInfo.DamageType.HP_LOSS));
+                AbstractDungeon.player.damage(new DamageInfo(null, AbstractDungeon.player.currentHealth / 2, DamageInfo.DamageType.HP_LOSS));
 
                 break;
         }
