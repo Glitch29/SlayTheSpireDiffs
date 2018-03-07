@@ -51,7 +51,9 @@ public class WomanInBlue
         GenericEventDialog.setDialogOption(OPTIONS[0] + 20 + OPTIONS[3]);
         GenericEventDialog.setDialogOption(OPTIONS[1] + 30 + OPTIONS[3]);
         GenericEventDialog.setDialogOption(OPTIONS[2] + 40 + OPTIONS[3]);
-        GenericEventDialog.setDialogOption(OPTIONS[4]);
+        GenericEventDialog.setDialogOption(OPTIONS.length > 5 && AbstractDungeon.ascensionLevel >= 15 ?
+                OPTIONS[4] :
+                OPTIONS[5] + MathUtils.ceil(AbstractDungeon.player.maxHealth * PUNCH_DMG_PERCENT) + OPTIONS[6]);
     }
 
     protected void buttonEffect(int buttonPressed)
@@ -94,12 +96,10 @@ public class WomanInBlue
                     case 3:
                         GenericEventDialog.updateBodyText(DESCRIPTIONS[2]);
                         CardCrawlGame.screenShake.shake(ScreenShake.ShakeIntensity.MED, ScreenShake.ShakeDur.MED, false);
-
                         CardCrawlGame.sound.play("BLUNT_FAST");
                         if (AbstractDungeon.ascensionLevel >= 15) {
                             AbstractDungeon.player.damage(new DamageInfo(null,
-
-                                    MathUtils.ceil(AbstractDungeon.player.maxHealth * 0.05F), DamageInfo.DamageType.HP_LOSS));
+                                    MathUtils.ceil(AbstractDungeon.player.maxHealth * PUNCH_DMG_PERCENT), DamageInfo.DamageType.HP_LOSS));
                         }
                         logMetric("Bought 0 Potions");
                 }
