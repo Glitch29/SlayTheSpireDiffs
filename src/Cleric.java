@@ -38,9 +38,9 @@ public class Cleric
     {
         super(NAME, DIALOG_1, "images/events/cleric.jpg");
         if (AbstractDungeon.ascensionLevel >= 15) {
-            this.purifyCost = 75;
+            this.purifyCost = A_2_PURIFY_COST;
         } else {
-            this.purifyCost = 50;
+            this.purifyCost = PURIFY_COST;
         }
         int gold = AbstractDungeon.player.gold;
         if (gold >= 35)
@@ -52,10 +52,10 @@ public class Cleric
         {
             GenericEventDialog.setDialogOption(OPTIONS[1] + 35 + OPTIONS[2], gold < 35);
         }
-        if (gold >= 50) {
-            GenericEventDialog.setDialogOption(OPTIONS[3] + this.purifyCost + OPTIONS[4], gold < 50);
+        if (gold >= purifyCost) {
+            GenericEventDialog.setDialogOption(OPTIONS[3] + this.purifyCost + OPTIONS[4], gold < purifyCost);
         } else {
-            GenericEventDialog.setDialogOption(OPTIONS[5], gold < 50);
+            GenericEventDialog.setDialogOption(OPTIONS[5], gold < purifyCost);
         }
         GenericEventDialog.setDialogOption(OPTIONS[6]);
     }
@@ -86,7 +86,7 @@ public class Cleric
                         logMetric("Healed");
                         break;
                     case 1:
-                        AbstractDungeon.player.loseGold(50);
+                        AbstractDungeon.player.loseGold(purifyCost);
                         AbstractDungeon.gridSelectScreen.open(
                                 CardGroup.getGroupWithoutBottledCards(AbstractDungeon.player.masterDeck
                                         .getPurgeableCards()), 1, OPTIONS[7], false, false, false, true);
