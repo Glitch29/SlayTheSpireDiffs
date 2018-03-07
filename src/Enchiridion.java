@@ -29,7 +29,7 @@ public class Enchiridion
 
         AbstractCard c = AbstractDungeon.getCardFromPool(AbstractDungeon.rollRareOrUncommon(0.5F), AbstractCard.CardType.POWER, false).makeCopy();
         if (c.cost != -1) {
-            c.updateCost(-99);
+            c.setCostForTurn(0);
         }
         UnlockTracker.markCardAsSeen(c.cardID);
         AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(c));
@@ -40,4 +40,3 @@ public class Enchiridion
         return new Enchiridion();
     }
 }
-    
