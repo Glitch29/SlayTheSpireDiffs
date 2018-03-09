@@ -38,6 +38,7 @@ public class GremlinThief
     private static final int HP_MAX = 14;
     private static final int A_2_HP_MIN = 11;
     private static final int A_2_HP_MAX = 15;
+    private int thiefDamage;
 
     public GremlinThief(float x, float y)
     {
@@ -48,11 +49,8 @@ public class GremlinThief
         } else {
             setHp(10, 14);
         }
-        if (AbstractDungeon.ascensionLevel >= 2) {
-            this.damage.add(new DamageInfo(this, 10));
-        } else {
-            this.damage.add(new DamageInfo(this, 9));
-        }
+        thiefDamage = (AbstractDungeon.ascensionLevel >= 2 ? A_2_THIEF_DAMAGE : THIEF_DAMAGE);
+        this.damage.add(new DamageInfo(this, thiefDamage));
         loadAnimation("images/monsters/theBottom/thiefGremlin/skeleton.atlas", "images/monsters/theBottom/thiefGremlin/skeleton.json", 1.0F);
 
         AnimationState.TrackEntry e = this.state.setAnimation(0, "animation", true);
@@ -69,7 +67,7 @@ public class GremlinThief
 
                         (DamageInfo)this.damage.get(0), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
                 if (!this.escapeNext) {
-                    AbstractDungeon.actionManager.addToBottom(new SetMoveAction(this, (byte)1, AbstractMonster.Intent.ATTACK, 9));
+                    AbstractDungeon.actionManager.addToBottom(new SetMoveAction(this, (byte)1, AbstractMonster.Intent.ATTACK, thiefDamage));
                 } else {
                     AbstractDungeon.actionManager.addToBottom(new SetMoveAction(this, (byte)99, AbstractMonster.Intent.ESCAPE));
                 }
